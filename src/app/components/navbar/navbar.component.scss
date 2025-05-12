@@ -1,0 +1,60 @@
+.navbar {
+    background-color: #343a40 !important; /* Fondo oscuro */
+    padding: 1rem 1.5rem; /* Espaciado interno */
+  }
+  
+  .navbar-brand {
+    color: white !important; /* Texto blanco */
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none; /* Opcional: quitar subrayado del enlace */
+  }
+  
+  .navbar-nav {
+    margin-left: auto; /* Alinea los elementos a la derecha */
+  }
+  
+  .nav-item {
+    margin-left: 1rem; /* Espacio entre los elementos del menú */
+  }
+  
+  .nav-link {
+    color: white !important; /* Texto blanco */
+    text-decoration: none; /* Opcional: quitar subrayado del enlace */
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem; /* Bordes ligeramente redondeados */
+  }
+  
+  .nav-link:hover {
+    color: #f8f9fa !important; /* Texto ligeramente más claro al pasar el ratón */
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo sutil al pasar el ratón */
+  }
+  
+  /* Opcional: Estilos para el botón de colapso en pantallas pequeñas */
+  .navbar-toggler {
+    border: none;
+    background: transparent;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    font-size: 1.25rem;
+  }
+  
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 0.7)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+  
+  /* Opcional: Estilos para cuando el menú está colapsado (si es necesario) */
+  .collapse.navbar-collapse {
+    justify-content: flex-end; /* Alinea los elementos a la derecha en pantallas pequeñas también */
+  }
+  
+  @media (max-width: 991.98px) { /* Para pantallas pequeñas */
+    .navbar-nav {
+      margin-left: 0; /* Elimina el margen izquierdo en pantallas pequeñas */
+      text-align: center; /* Centra los elementos del menú */
+    }
+  
+    .nav-item {
+      margin: 0.5rem 0; /* Espacio vertical entre los elementos del menú */
+    }
+  }

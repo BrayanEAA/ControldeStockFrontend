@@ -1,0 +1,23 @@
+<div class="categories-container">
+  <h2>Gestión de Categorías</h2>
+
+  <form (ngSubmit)="editingCategory ? updateCategory() : addCategory()">
+    <label for="categoryName">Nombre:</label>
+    <input type="text" id="categoryName" [(ngModel)]="newCategory.name" name="name" required>
+
+    <label for="categoryDescription">Descripción:</label>
+    <input type="text" id="categoryDescription" [(ngModel)]="newCategory.description" name="description">
+
+    <button type="submit">{{ editingCategory ? 'Actualizar' : 'Agregar' }} Categoría</button>
+  </form>
+
+  <ul>
+    <li *ngFor="let category of categories">
+      <span>{{ category.name }} - {{ category.description }}</span>
+      <div class="category-actions">
+        <button (click)="editCategory(category)">Editar</button>
+        <button (click)="deleteCategory(category._id!)">Eliminar</button>
+      </div>
+    </li>
+  </ul>
+</div>

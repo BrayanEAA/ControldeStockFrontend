@@ -1,0 +1,117 @@
+<div class="reports-container">
+  <h2>Reportes</h2>
+
+  <div class="report-section">
+    <h3>Movimientos por Rango de Fechas</h3>
+    <div class="filter-controls">
+      <label for="startDate">Fecha de Inicio:</label>
+      <input type="date" id="startDate" [(ngModel)]="startDate">
+      <label for="endDate">Fecha de Fin:</label>
+      <input type="date" id="endDate" [(ngModel)]="endDate">
+      <button (click)="obtenerMovimientosPorFecha()">Obtener Reporte</button>
+    </div>
+    <div *ngIf="movimientosPorFecha.length > 0" class="report-results">
+      <h4>Resultados:</h4>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Producto</th>
+            <th>Tipo</th>
+            <th>Cantidad</th>
+            <th>Fecha</th>
+            <th>Nota</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let movimiento of movimientosPorFecha">
+            <td>{{ movimiento._id }}</td>
+            <td>{{ movimiento.productName }}</td>
+            <td>{{ movimiento.type }}</td>
+            <td>{{ movimiento.quantity }}</td>
+            <td>{{ movimiento.date | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+            <td>{{ movimiento.note }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="movimientosPorFecha.length === 0 && startDate && endDate" class="no-results">
+      No se encontraron movimientos en el rango de fechas seleccionado.
+    </div>
+  </div>
+
+  <hr class="section-separator">
+
+  <div class="report-section">
+    <h3>Movimientos por Producto</h3>
+    <div class="filter-controls">
+      <label for="producto">Seleccionar Producto:</label>
+      <select id="producto" [(ngModel)]="selectedProductId">
+        <option value="" disabled selected>Seleccionar un producto</option>
+        <option *ngFor="let producto of productos" [value]="producto._id">{{ producto.name }}</option>
+      </select>
+      <button (click)="obtenerMovimientosPorProducto()">Obtener Reporte</button>
+    </div>
+    <div *ngIf="movimientosPorProducto.length > 0" class="report-results">
+      <h4>Resultados:</h4>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Producto</th>
+            <th>Tipo</th>
+            <th>Cantidad</th>
+            <th>Fecha</th>
+            <th>Nota</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let movimiento of movimientosPorProducto">
+            <td>{{ movimiento._id }}</td>
+            <td>{{ movimiento.productName }}</td> <td>{{ movimiento.type }}</td>
+            <td>{{ movimiento.type }}</td>
+            <td>{{ movimiento.quantity }}</td>
+            <td>{{ movimiento.date | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+            <td>{{ movimiento.note }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="movimientosPorProducto.length === 0 && selectedProductId" class="no-results">
+      No se encontraron movimientos para el producto seleccionado.
+    </div>
+  </div>
+
+  <hr class="section-separator">
+
+  <div class="report-section">
+    <h3>Productos con Stock Bajo</h3>
+    <div class="filter-controls">
+      <button (click)="obtenerProductosConStockBajo()">Obtener Reporte</button>
+    </div>
+    <div *ngIf="productosConStockBajo.length > 0" class="report-results">
+      <h4>Productos con Stock Bajo:</h4>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Nombre del Producto</th>
+            <th>Stock</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let producto of productosConStockBajo">
+            <td>{{ producto.name }}</td>
+            <td>{{ producto.stock }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="productosConStockBajo.length === 0" class="no-results">
+      No hay productos con stock bajo actualmente.
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+</div>

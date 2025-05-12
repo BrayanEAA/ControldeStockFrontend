@@ -1,0 +1,77 @@
+<div class="products-container"> <h2>Listado de Productos</h2>
+
+  <div class="filter-section">
+    <h3>Filtrar productos por categoría y stock bajo</h3>
+
+    <label for="categoria">Seleccione una categoría:</label>
+    <select [(ngModel)]="categoriaSeleccionada" id="categoria">
+      <option *ngFor="let categoria of categorias" [value]="categoria._id">
+        {{ categoria.name }}
+      </option>
+    </select>
+
+    <label>
+      <input type="checkbox" [(ngModel)]="onlyLowStock" />
+      Mostrar solo productos con stock bajo
+    </label>
+
+    <button (click)="filtrarProductos()">Filtrar</button>
+
+    <p *ngIf="mensaje">{{ mensaje }}</p>
+  </div>
+
+  <button (click)="mostrarFormulario = !mostrarFormulario">
+    {{ mostrarFormulario ? 'Ocultar formulario' : 'Agregar nuevo producto' }}
+  </button>
+
+  <div *ngIf="mostrarFormulario || editing" class="product-form-container">
+    <h3>{{ editing ? 'Editar Producto' : 'Agregar Producto' }}</h3>
+    <form (ngSubmit)="addProduct()">
+      <input [(ngModel)]="newProduct.name" name="name" placeholder="Nombre" required />
+      <input [(ngModel)]="newProduct.description" name="description" placeholder="Descripción" required />
+
+      <select [(ngModel)]="newProduct.category" name="category" required>
+        <option value="">Seleccione una categoría</option>
+        <option *ngFor="let cat of categorias" [value]="cat._id">{{ cat.name }}</option>
+      </select>
+
+      <input type="number" [(ngModel)]="newProduct.stock" name="stock" placeholder="Stock" required />
+      <input type="number" [(ngModel)]="newProduct.price" name="price" placeholder="Precio" required />
+
+      <button type="submit">{{ editing ? 'Actualizar' : 'Agregar' }}</button>
+      <button type="button" (click)="resetForm()">Cancelar</button>
+    </form>
+  </div>
+
+  <div *ngIf="loading" class="loading-message">Cargando productos...</div>
+
+  <table *ngIf="!loading && products.length > 0" class="products-table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Categoría</th>
+        <th>Stock</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ getCategoryName(product.category) }}</td>
+        <td>{{ product.stock }}</td>
+        <td>{{ product.price | currency:'USD' }}</td>
+        <td class="actions-column">
+          <button (click)="editProduct(product)">Editar</button>
+          <button *ngIf="product._id" (click)="deleteProduct(product._id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && products.length === 0" class="no-products-message">
+    No hay productos registrados.
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<p>movimientos works!</p>
+<div class="movimientos-container">
+    <h2>Registro de Movimientos de Stock</h2>
+  
+    <!-- Formulario para agregar movimiento -->
+    <form (ngSubmit)="addMovement()">
+      <label for="product">Producto:</label>
+      <select [(ngModel)]="movement.product" name="product" required>
+        <option *ngFor="let product of products" [value]="product._id">{{ product.name }}</option>
+      </select>
+  
+      <label for="type">Tipo de Movimiento:</label>
+      <select [(ngModel)]="movement.type" name="type" required>
+        <option value="entrada">Entrada</option>
+        <option value="salida">Salida</option>
+      </select>
+  
+      <label for="quantity">Cantidad:</label>
+      <input type="number" [(ngModel)]="movement.quantity" name="quantity" min="1" required>
+  
+      <button type="submit">Registrar Movimiento</button>
+    </form>
+  
+    <!-- Mostrar error si hay -->
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  
+    <!-- Tabla de historial de movimientos -->
+    <h3>Historial de Movimientos</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Tipo</th>
+          <th>Cantidad</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let movement of movements">
+          <td>{{ movement.product.name }}</td>
+          <td>{{ movement.type }}</td>
+          <td>{{ movement.quantity }}</td>
+          <td>{{ movement.date | date: 'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
